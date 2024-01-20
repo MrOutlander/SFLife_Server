@@ -1,4 +1,4 @@
-const Location = require('./path/to/location.model'); // Update with the correct path
+const Location = require('../mongodb/models/locations.js'); // Update with the correct path
 
 // Get all locations
 const getAllLocations = async (req, res) => {

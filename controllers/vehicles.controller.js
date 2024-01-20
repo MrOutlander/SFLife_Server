@@ -134,4 +134,4 @@ module.exports = {
 
     // Mobile Exports
     getAllVehiclesMobile,
-};
+}

@@ -1,12 +1,12 @@
-import express from "express";
+const express = require("express");
 
-import {     
+const {     
     getAllReservations,
     getReservationById,
     createReservation,
     editReservation,
     deleteReservation
-} from '../controllers/reservations.controller.js'
+} = require('../controllers/reservations.controller.js')
 
 const router = express.Router();
 
@@ -16,4 +16,4 @@ router.route('/').post(createReservation);
 router.route('/:id').patch(editReservation);
 router.route('/:id').delete(deleteReservation);
 
-export default router;
+module.exports = router;
