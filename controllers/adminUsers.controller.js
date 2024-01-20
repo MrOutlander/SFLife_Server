@@ -24,7 +24,7 @@ const getAdminUserById = async (req, res) => {
 };
 
 // Add a new admin user
-const addAdminUser = async (req, res) => {
+const createAdminUser = async (req, res) => {
     try {
         // Check if admin user already exists
         const existingAdminUser = await AdminUser.findOne({ email: req.body.email });
@@ -41,7 +41,7 @@ const addAdminUser = async (req, res) => {
 };
 
 // Update an admin user
-const updateAdminUser = async (req, res) => {
+const editAdminUser = async (req, res) => {
     try {
         const adminUser = await AdminUser.findById(req.params.id);
         if (!adminUser) {
@@ -72,7 +72,7 @@ const deleteAdminUser = async (req, res) => {
 export {
     getAllAdminUsers,
     getAdminUserById,
-    addAdminUser,
-    updateAdminUser,
+    createAdminUser,
+    editAdminUser,
     deleteAdminUser
 };

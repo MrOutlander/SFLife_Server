@@ -29,6 +29,7 @@ const getAllVehicles = async (req, res) => {
     }
 };
 
+
 // Get a single vehicle by ID
 const getVehicleById = async (req, res) => {
     try {
@@ -42,9 +43,9 @@ const getVehicleById = async (req, res) => {
     }
 };
 
+
 // Add a new vehicle
-// Add a new vehicle
-const addVehicle = async (req, res) => {
+const createVehicle = async (req, res) => {
     try {
         // Check if vehicle with the same plate number already exists
         const existingVehicle = await Vehicle.findOne({ plateNr: req.body.plateNr });
@@ -62,7 +63,7 @@ const addVehicle = async (req, res) => {
 
 
 // Update a vehicle
-const updateVehicle = async (req, res) => {
+const editVehicle = async (req, res) => {
     try {
         const vehicle = await Vehicle.findById(req.params.id);
         if (!vehicle) {
@@ -75,6 +76,7 @@ const updateVehicle = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
+
 
 // Delete a vehicle
 const deleteVehicle = async (req, res) => {
@@ -126,8 +128,8 @@ const getAllVehiclesMobile = async (req, res) => {
 module.exports = {
     getAllVehicles,
     getVehicleById,
-    addVehicle,
-    updateVehicle,
+    createVehicle,
+    editVehicle,
     deleteVehicle,
 
     // Mobile Exports

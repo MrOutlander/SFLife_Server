@@ -24,7 +24,7 @@ const getLocationById = async (req, res) => {
 };
 
 // Add a new location
-const addLocation = async (req, res) => {
+const createLocation = async (req, res) => {
     try {
         // Check if location with the same name already exists
         const existingLocation = await Location.findOne({ name: req.body.name });
@@ -41,7 +41,7 @@ const addLocation = async (req, res) => {
 };
 
 // Update a location
-const updateLocation = async (req, res) => {
+const editLocation = async (req, res) => {
     try {
         const location = await Location.findById(req.params.id);
         if (!location) {
@@ -72,7 +72,7 @@ const deleteLocation = async (req, res) => {
 module.exports = {
     getAllLocations,
     getLocationById,
-    addLocation,
-    updateLocation,
+    createLocation,
+    editLocation,
     deleteLocation
 };

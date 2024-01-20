@@ -24,8 +24,7 @@ const getUserById = async (req, res) => {
 };
 
 // Add a new user
-// Add a new user
-const addUser = async (req, res) => {
+const createUser = async (req, res) => {
     try {
         // Check if user already exists
         const existingUser = await User.findOne({ email: req.body.email });
@@ -42,7 +41,7 @@ const addUser = async (req, res) => {
 
 
 // Update a user
-const updateUser = async (req, res) => {
+const editUser = async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
         if (!user) {
@@ -73,7 +72,7 @@ const deleteUser = async (req, res) => {
 module.exports = {
     getAllUsers,
     getUserById,
-    addUser,
-    updateUser,
+    createUser,
+    editUser,
     deleteUser
 };

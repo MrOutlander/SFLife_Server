@@ -24,7 +24,7 @@ const getVehicleCategoryById = async (req, res) => {
 };
 
 // Add a new vehicle category
-const addVehicleCategory = async (req, res) => {
+const createVehicleCategory = async (req, res) => {
     const category = new VehicleCategory(req.body);
     try {
         const newCategory = await category.save();
@@ -35,7 +35,7 @@ const addVehicleCategory = async (req, res) => {
 };
 
 // Update a vehicle category
-const updateVehicleCategory = async (req, res) => {
+const editVehicleCategory = async (req, res) => {
     try {
         const category = await VehicleCategory.findById(req.params.id);
         if (!category) {
@@ -66,7 +66,7 @@ const deleteVehicleCategory = async (req, res) => {
 module.exports = {
     getAllVehicleCategories,
     getVehicleCategoryById,
-    addVehicleCategory,
-    updateVehicleCategory,
+    createVehicleCategory,
+    editVehicleCategory,
     deleteVehicleCategory
 };

@@ -26,7 +26,7 @@ const getReservationById = async (req, res) => {
 };
 
 // Add a new reservation
-const addReservation = async (req, res) => {
+const createReservation = async (req, res) => {
     try {
         // Check if referenced user, vehicle, and locations exist
         const userExists = await User.findById(req.body.user);
@@ -54,7 +54,7 @@ const addReservation = async (req, res) => {
 };
 
 // Update a reservation
-const updateReservation = async (req, res) => {
+const editReservation = async (req, res) => {
     try {
         const reservation = await Reservation.findById(req.params.id);
         if (!reservation) {
@@ -88,7 +88,7 @@ const deleteReservation = async (req, res) => {
 module.exports = {
     getAllReservations,
     getReservationById,
-    addReservation,
-    updateReservation,
+    createReservation,
+    editReservation,
     deleteReservation
 };
