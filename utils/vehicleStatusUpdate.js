@@ -1,5 +1,5 @@
-const Vehicle = require('../mongodb/models/vehicles.js');
-const Reservation = require('../mongodb/models/reservations.js');
+import Vehicle from '../mongodb/models/vehicles.js'
+import Reservation from '../mongodb/models/reservations.js'
 
 const updateVehicleAvailability = async () => {
     try {
@@ -22,6 +22,6 @@ const updateVehicleAvailability = async () => {
     }
 };
 
-export {
+export default {
     updateVehicleAvailability,
 }

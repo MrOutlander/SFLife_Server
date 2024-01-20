@@ -1,12 +1,12 @@
-const express = require("express");
+import express from "express"
 
-const {     
+import {     
     getAllAdminUsers,
     getAdminUserById,
     createAdminUser,
     editAdminUser,
     deleteAdminUser 
-} = require('../controllers/adminUsers.controller.js')
+} from '../controllers/adminUsers.controller.js'
 
 const router = express.Router();
 
@@ -16,4 +16,4 @@ router.route('/').post(createAdminUser);
 router.route('/:id').patch(editAdminUser);
 router.route('/:id').delete(deleteAdminUser);
 
-module.exports = router;
+export default router;

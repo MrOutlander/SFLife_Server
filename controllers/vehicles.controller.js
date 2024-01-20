@@ -1,5 +1,5 @@
-const Vehicle = require('../mongodb/models/vehicles.js');
-const updateVehicleAvailability = require('../utils/vehicleStatusUpdate.js')
+import Vehicle from '../mongodb/models/vehicles.js'
+import updateVehicleAvailability from '../utils/vehicleStatusUpdate.js'
 
 // Get all vehicles with filtering and sorting
 const getAllVehicles = async (req, res) => {
@@ -125,7 +125,7 @@ const getAllVehiclesMobile = async (req, res) => {
 };
 
 
-module.exports = {
+export {
     getAllVehicles,
     getVehicleById,
     createVehicle,

@@ -1,6 +1,6 @@
-const Reservation = require('../mongodb/models/reservations');
-const User = require('../mongodb/models/users');
-const Vehicle = require('../mongodb/models/vehicles');
+import Reservation from '../mongodb/models/reservations.js'
+import User from '../mongodb/models/users.js'
+import Vehicle from '../mongodb/models/vehicles.js'
 
 // Get all reservations
 const getAllReservations = async (req, res) => {
@@ -85,7 +85,7 @@ const deleteReservation = async (req, res) => {
     }
 };
 
-module.exports = {
+export {
     getAllReservations,
     getReservationById,
     createReservation,

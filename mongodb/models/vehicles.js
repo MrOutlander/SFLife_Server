@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const vehicleSchema = new mongoose.Schema({
     brand: { type: String, required: true },
@@ -37,4 +37,6 @@ vehicleSchema.virtual('reservations', {
     justOne: false
 });
 
-module.exports = mongoose.model('Vehicle', vehicleSchema);
+const Vehicle = mongoose.model('Vehicle', vehicleSchema);
+
+export default Vehicle;

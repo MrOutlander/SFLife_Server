@@ -1,12 +1,12 @@
-const express = require("express");
+import express from "express"
 
-const {     
+import {     
     getAllLocations,
     getLocationById,
     createLocation,
     editLocation,
     deleteLocation
-} = require('../controllers/locations.controller.js')
+} from '../controllers/locations.controller.js'
 
 const router = express.Router();
 
@@ -16,4 +16,4 @@ router.route('/').post(createLocation);
 router.route('/:id').patch(editLocation);
 router.route('/:id').delete(deleteLocation);
 
-module.exports = router;
+export default router;

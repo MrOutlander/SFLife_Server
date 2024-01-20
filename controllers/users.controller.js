@@ -1,4 +1,4 @@
-const User = require('../mongodb/models/users.js'); // Update with the correct path
+import User from '../mongodb/models/users.js'
 
 // Get all users
 const getAllUsers = async (req, res) => {
@@ -69,7 +69,7 @@ const deleteUser = async (req, res) => {
     }
 };
 
-module.exports = {
+export {
     getAllUsers,
     getUserById,
     createUser,

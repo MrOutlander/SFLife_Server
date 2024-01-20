@@ -1,12 +1,12 @@
-const express = require("express");
+import express from "express"
 
-const {     
+import {     
     getAllVehicleCategories,
     getVehicleCategoryById,
     createVehicleCategory,
     editVehicleCategory,
     deleteVehicleCategory
-} = require('../controllers/vehicleCategory.controller.js')
+} from '../controllers/vehicleCategory.controller.js'
 
 const router = express.Router();
 
@@ -16,4 +16,4 @@ router.route('/').post(createVehicleCategory);
 router.route('/:id').patch(editVehicleCategory);
 router.route('/:id').delete(deleteVehicleCategory);
 
-module.exports = router;
+export default router;

@@ -1,4 +1,4 @@
-const Location = require('../mongodb/models/locations.js'); // Update with the correct path
+import Location from '../mongodb/models/locations.js'
 
 // Get all locations
 const getAllLocations = async (req, res) => {
@@ -69,7 +69,7 @@ const deleteLocation = async (req, res) => {
     }
 };
 
-module.exports = {
+export {
     getAllLocations,
     getLocationById,
     createLocation,

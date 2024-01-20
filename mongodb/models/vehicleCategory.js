@@ -1,8 +1,10 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const vehicleCategorySchema = new mongoose.Schema({
     name: { type: String, required: true },
     description: {type: String, required: true}
 });
 
-module.exports = mongoose.model('VehicleCategory', vehicleCategorySchema);
+const VehicleCategory = mongoose.model('VehicleCategory', vehicleCategorySchema);
+
+export default VehicleCategory;

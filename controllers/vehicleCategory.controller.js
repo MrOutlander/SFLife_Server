@@ -1,4 +1,4 @@
-const VehicleCategory = require('../mongodb/models/vehicleCategory'); // Update with the correct path
+import VehicleCategory from '../mongodb/models/vehicleCategory.js'
 
 // Get all vehicle categories
 const getAllVehicleCategories = async (req, res) => {
@@ -63,7 +63,7 @@ const deleteVehicleCategory = async (req, res) => {
     }
 };
 
-module.exports = {
+export {
     getAllVehicleCategories,
     getVehicleCategoryById,
     createVehicleCategory,

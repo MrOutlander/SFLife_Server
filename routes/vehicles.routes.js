@@ -1,6 +1,6 @@
-const express = require("express");
+import express from "express"
 
-const {     
+import {     
     getAllVehicles,
     getVehicleById,
     createVehicle,
@@ -9,7 +9,7 @@ const {
 
     // Mobile Exports
     getAllVehiclesMobile,
-} = require('../controllers/vehicles.controller.js')
+} from '../controllers/vehicles.controller.js'
 
 const router = express.Router();
 
@@ -22,4 +22,4 @@ router.route('/:id').delete(deleteVehicle);
 // MOBILE
 router.route('/').get(getAllVehiclesMobile);
 
-module.exports = router;
+export default router;

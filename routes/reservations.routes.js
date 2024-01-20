@@ -1,12 +1,12 @@
-const express = require("express");
+import express from "express"
 
-const {     
+import {     
     getAllReservations,
     getReservationById,
     createReservation,
     editReservation,
     deleteReservation
-} = require('../controllers/reservations.controller.js')
+} from '../controllers/reservations.controller.js'
 
 const router = express.Router();
 
@@ -16,4 +16,4 @@ router.route('/').post(createReservation);
 router.route('/:id').patch(editReservation);
 router.route('/:id').delete(deleteReservation);
 
-module.exports = router;
+export default router;

@@ -1,4 +1,4 @@
-const AdminUser = require('../mongodb/models/adminUsers.js'); // Update with the correct path
+import AdminUser from '../mongodb/models/adminUsers.js'
 
 // Get all admin users
 const getAllAdminUsers = async (req, res) => {
@@ -69,7 +69,7 @@ const deleteAdminUser = async (req, res) => {
     }
 };
 
-module.exports = {
+export {
     getAllAdminUsers,
     getAdminUserById,
     createAdminUser,
