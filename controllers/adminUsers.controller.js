@@ -25,16 +25,46 @@ const getAdminUserById = async (req, res) => {
 
 // Add a new admin user
 const createAdminUser = async (req, res) => {
+//     try {
+//         // Check if admin user already exists
+//         const existingAdminUser = await AdminUser.findOne({ email: req.body.email });
+//         if (existingAdminUser) {
+//             return res.status(400).json({ message: 'An admin user with this email already exists.' });
+//         }
+
+//         const adminUser = new AdminUser(req.body);
+//         const newAdminUser = await adminUser.save();
+//         res.status(201).json(newAdminUser);
+//     } catch (error) {
+//         res.status(400).json({ message: error.message });
+//     }
+// };
+
     try {
         // Check if admin user already exists
         const existingAdminUser = await AdminUser.findOne({ email: req.body.email });
         if (existingAdminUser) {
-            return res.status(400).json({ message: 'An admin user with this email already exists.' });
+            // User exists, log them in
+            // Here, you can include any additional logic you need for a login
+            // For example, you might want to update the last login timestamp or similar
+            return res.status(200).json({ 
+                message: 'Admin user logged in successfully.', 
+                user: existingAdminUser
+            });
         }
 
-        const adminUser = new AdminUser(req.body);
+        // If user does not exist, create a new user
+        const adminUser = new AdminUser({
+            name: req.body.name,
+            email: req.body.email,
+            avatar: req.body.avatar
+            // other properties as needed
+        });
         const newAdminUser = await adminUser.save();
-        res.status(201).json(newAdminUser);
+        res.status(201).json({ 
+            message: 'Admin user created successfully.', 
+            user: newAdminUser
+        });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
