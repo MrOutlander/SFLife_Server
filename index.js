@@ -23,7 +23,7 @@ const corsOptions = {
           callback(null, true);
         } else {
           // existing logic for web origins
-          const allowedOrigins = ['http://82.7.165.34', 'http://localhost:5173', 'https://zingy-gaufre-59424b.netlify.app'];
+          const allowedOrigins = ['http://82.7.165.34', 'http://101.188.67.134', 'http://localhost:5173', 'http://localhost' , /*'https://zingy-gaufre-59424b.netlify.app'*/];
           if (allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
           } else {
@@ -52,12 +52,9 @@ app.use('/api/v1/vehicles', vehiclesRouter);
 app.use('/api/v1/vehicle_Category', vehicleCategoryRouter);
 app.get('/api/config', (req, res) => {
     res.json({
-      // googleClientId: process.env.GOOGLE_CLIENT_ID,
-      // googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
-      // cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME,
-      // cloudinaryUploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET,
-      // baseUrl: process.env.API_BASE_URL,
-      // renderedData: process.env.RENDERED_DATA_URL,
+      googleClientId: process.env.GOOGLE_CLIENT_ID,
+      baseUrl: process.env.API_BASE_URL,
+      renderedData: process.env.RENDERED_DATA_URL,
     });
 });
 

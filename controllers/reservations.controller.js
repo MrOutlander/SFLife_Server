@@ -74,11 +74,10 @@ const editReservation = async (req, res) => {
 // Delete a reservation
 const deleteReservation = async (req, res) => {
     try {
-        const reservation = await Reservation.findById(req.params.id);
+        const reservation = await Reservation.findByIdAndDelete(req.params.id);
         if (!reservation) {
             return res.status(404).json({ message: 'Reservation not found' });
         }
-        await reservation.remove();
         res.json({ message: 'Reservation deleted' });
     } catch (error) {
         res.status(500).json({ message: error.message });

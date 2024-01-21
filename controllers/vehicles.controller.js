@@ -81,11 +81,10 @@ const editVehicle = async (req, res) => {
 // Delete a vehicle
 const deleteVehicle = async (req, res) => {
     try {
-        const vehicle = await Vehicle.findById(req.params.id);
+        const vehicle = await Vehicle.findByIdAndDelete(req.params.id);
         if (!vehicle) {
             return res.status(404).json({ message: 'Vehicle not found' });
         }
-        await vehicle.remove();
         res.json({ message: 'Vehicle deleted' });
     } catch (error) {
         res.status(500).json({ message: error.message });

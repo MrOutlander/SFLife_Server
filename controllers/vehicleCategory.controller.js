@@ -52,11 +52,10 @@ const editVehicleCategory = async (req, res) => {
 // Delete a vehicle category
 const deleteVehicleCategory = async (req, res) => {
     try {
-        const category = await VehicleCategory.findById(req.params.id);
+        const category = await VehicleCategory.findByIdAndDelete(req.params.id);
         if (!category) {
             return res.status(404).json({ message: 'Vehicle category not found' });
         }
-        await category.remove();
         res.json({ message: 'Vehicle category deleted' });
     } catch (error) {
         res.status(500).json({ message: error.message });

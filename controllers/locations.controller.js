@@ -58,11 +58,10 @@ const editLocation = async (req, res) => {
 // Delete a location
 const deleteLocation = async (req, res) => {
     try {
-        const location = await Location.findById(req.params.id);
+        const location = await Location.findByIdAndDelete(req.params.id);
         if (!location) {
             return res.status(404).json({ message: 'Location not found' });
         }
-        await location.remove();
         res.json({ message: 'Location deleted' });
     } catch (error) {
         res.status(500).json({ message: error.message });
