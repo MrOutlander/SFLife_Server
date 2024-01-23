@@ -23,7 +23,7 @@ const corsOptions = {
           callback(null, true);
         } else {
           // existing logic for web origins
-          const allowedOrigins = ['http://82.7.165.34', 'http://101.188.67.134', 'http://localhost:5173', 'http://localhost' , /*'https://zingy-gaufre-59424b.netlify.app'*/];
+          const allowedOrigins = ['http://82.7.165.34', 'http://101.188.67.134', 'https://sunny-chimera-aab910.netlify.app' ];
           if (allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
           } else {
