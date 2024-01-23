@@ -55,6 +55,9 @@ app.get('/api/config', (req, res) => {
       googleClientId: process.env.GOOGLE_CLIENT_ID,
       baseUrl: process.env.API_BASE_URL,
       renderedData: process.env.RENDERED_DATA_URL,
+      cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME,
+      cloudinaryUploadPresetThumb: process.env.CLOUDINARY_UPLOAD_PRESET_THUMB,
+      cloudinaryUploadPresetVehicles: process.env.CLOUDINARY_UPLOAD_PRESET_VEHICLES,
     });
 });
 

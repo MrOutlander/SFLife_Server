@@ -3,30 +3,30 @@ import mongoose from "mongoose";
 const vehicleSchema = new mongoose.Schema({
     brand: { type: String, required: true },
     model: { type: String, required: true },
-    thumb: { type: String, required: true }, 
-    images: [ String ], 
+    plateNr: { type: String, required: true, unique: true },
     price: { type: Number, required: true },
-    gearBox: { type: String, required: true },
+    gearBox: { type: String, enum: ['Manual', 'Automático', 'DSG'], default: 'Manual', required: true },
     year: { type: Number, required: true },
     seats: { type: Number, required: true },
     doors: { type: Number, required: true },
     ac: { type: Boolean, default: false },
     gps: { type: Boolean, default: false },
-    horsepower: { type: Number },
-    range: { type: Number }, // Could be in kilometers or miles
-    capacity: { type: Number }, // Could be in liters or cubic feet
-    acceleration: { type: Number }, // Time (in seconds) to reach a certain speed
-    maxSpeed: { type: Number }, // Maximum speed
-    description: String,
-    plateNr: { type: String, required: true, unique: true },
+    horsepower: { type: Number, required: true },
+    range: { type: Number, required: true }, // Could be in kilometers or miles
+    capacity: { type: Number, required: true }, // Could be in liters or cubic feet
+    acceleration: { type: Number, required: true }, // Time (in seconds) to reach a certain speed
+    maxSpeed: { type: Number, required: true }, // Maximum speed
+    description: {type: String, required: true},
+    thumb: { type: String, required: true }, 
+    images: [ String ], 
     features: [{ type: String }],
-    location: { type: mongoose.Schema.Types.ObjectId, ref: 'locations', required: true },
-    category: { type: mongoose.Schema.Types.ObjectId, ref: 'vehicleCategory', required: true },
+    location: { type: mongoose.Schema.Types.ObjectId, ref: 'Location', required: true },
+    category: { type: mongoose.Schema.Types.ObjectId, ref: 'VehicleCategory', required: true },
     status: { 
         type: String, 
         required: true, 
-        enum: ['available', 'maintenance', 'reserved'],
-        default: 'available'
+        enum: ['Disponível', 'Manutenção', 'Reservado', 'Alugado'],
+        default: 'Disponivel'
     },
 });
 

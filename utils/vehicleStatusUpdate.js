@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Vehicle from '../mongodb/models/vehicles.js'
 import Reservation from '../mongodb/models/reservations.js'
 
@@ -22,6 +23,25 @@ const updateVehicleAvailability = async () => {
     }
 };
 
+const updateVehicleLocations = async () => {
+    const endedReservations = await Reservation.find({
+        endDate: { $lt: new Date() },
+        vehicleStatusUpdated: false
+    }).populate('vehicle');
+
+    for (const reservation of endedReservations) {
+        if (reservation.pickUpLocation.toString() !== reservation.dropOffLocation.toString()) {
+            await Vehicle.findByIdAndUpdate(reservation.vehicle._id, {
+                location: reservation.dropOffLocation
+            });
+        }
+        // Update the reservation to indicate the vehicle status has been updated
+        reservation.vehicleStatusUpdated = true;
+        await reservation.save();
+    }
+};
+
 export default {
     updateVehicleAvailability,
+    updateVehicleLocations
 }
