@@ -74,7 +74,11 @@ const getVehicleById = async (req, res) => {
         const vehicle = await Vehicle.findById(req.params.id)
                                  .populate({
                                      path: 'category',
-                                     select: 'name'  // Only select the categoryName field
+                                     select: 'name'  // Only select the name field
+                                 })
+                                 .populate({
+                                     path: 'location',
+                                     select: 'name'  // Only select the Name field
                                  })
                                  .exec();
 
