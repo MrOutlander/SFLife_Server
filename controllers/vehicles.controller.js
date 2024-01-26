@@ -83,11 +83,11 @@ const getVehicleById = async (req, res) => {
                                  .exec();
 
         if (!vehicle) {
-            return res.status(404).json({ message: "Event not found" });
+            return res.status(404).json({ message: "Vehicle not found" });
         }
         res.status(200).json(vehicle);
     } catch (error) {
-        res.status(500).json({ message: "Error fetching event details", error });
+        res.status(500).json({ message: "Error fetching Vehicle details", error });
     } 
 };
 
@@ -160,25 +160,25 @@ const getAllVehiclesMobile = async (req, res) => {
     try {
         await updateVehicleAvailability();
 
-        let query = Vehicle.find({ status: 'available' });
+        // Define the aggregation pipeline
+        let pipeline = [
+            { $match: { status: 'Disponível' } }, // Filter to only include available vehicles
+            { $sample: { size: 10 } } // Randomly select 10 vehicles
+        ];
 
-        // Filtering
+        // Add additional filters if provided in the query
         if (req.query.brand) {
-            query = query.where('brand').equals(req.query.brand);
+            pipeline.unshift({ $match: { brand: req.query.brand } });
         }
         if (req.query.category) {
-            query = query.where('category').equals(req.query.category);
+            pipeline.unshift({ $match: { category: req.query.category } });
         }
         if (req.query.gearBox) {
-            query = query.where('gearBox').equals(req.query.gearBox);
+            pipeline.unshift({ $match: { gearBox: req.query.gearBox } });
         }
 
-        // Sorting
-        if (req.query.sortByPrice) {
-            query = query.sort({ price: req.query.sortByPrice }); // 'asc' or 'desc'
-        }
-
-        const vehicles = await query.exec();
+        // Execute the aggregation pipeline
+        const vehicles = await Vehicle.aggregate(pipeline);
         res.json(vehicles);
     } catch (error) {
         res.status(500).json({ message: error.message });
