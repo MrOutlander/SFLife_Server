@@ -158,8 +158,7 @@ const deleteVehicle = async (req, res) => {
 
 const getAllVehiclesMobile = async (req, res) => {
     try {
-        await updateVehicleAvailability();
-
+        
         // Define the aggregation pipeline
         let pipeline = [
             { $match: { status: 'Disponível' } }, // Filter to only include available vehicles
