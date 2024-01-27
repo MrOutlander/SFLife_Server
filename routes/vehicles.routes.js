@@ -18,6 +18,7 @@ router.route('/:id').get(getVehicleById);
 router.route('/').post(createVehicle);
 router.route('/:id').patch(editVehicle);
 router.route('/:id').delete(deleteVehicle);
+router.route('/mobile').get(getAllVehiclesMobile);
 
 // MOBILE
 router.route('/').get(getAllVehiclesMobile);
