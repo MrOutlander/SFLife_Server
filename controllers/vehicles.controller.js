@@ -1,4 +1,5 @@
 import Vehicle from '../mongodb/models/vehicles.js'
+import mongoose from 'mongoose';
 
 // Get all vehicles with filtering and sorting
 const getAllVehicles = async (req, res) => {
