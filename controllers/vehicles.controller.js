@@ -157,26 +157,51 @@ const deleteVehicle = async (req, res) => {
 // MOBILE CONTROLLERS
 
 const getAllVehiclesMobile = async (req, res) => {
+    // try {
+
+    //     // Define the aggregation pipeline
+    //     let pipeline = [
+    //         { $match: { status: 'Disponível' } }, // Filter to only include available vehicles
+    //         { $sample: { size: 10 } } // Randomly select 10 vehicles
+    //     ];
+
+    //     // Add additional filters if provided in the query
+    //     if (req.query.brand) {
+    //         pipeline.unshift({ $match: { brand: req.query.brand } });
+    //     }
+    //     if (req.query.category) {
+    //         pipeline.unshift({ $match: { category: req.query.category } });
+    //     }
+    //     if (req.query.gearBox) {
+    //         pipeline.unshift({ $match: { gearBox: req.query.gearBox } });
+    //     }
+
+    //     // Execute the aggregation pipeline
+    //     const vehicles = await Vehicle.aggregate(pipeline);
+    //     res.json(vehicles);
+    // } catch (error) {
+    //     res.status(500).json({ message: error.message });
+    // }
     try {
-        
-        // Define the aggregation pipeline
         let pipeline = [
-            { $match: { status: 'Disponível' } }, // Filter to only include available vehicles
-            { $sample: { size: 10 } } // Randomly select 10 vehicles
+            { $match: { status: 'Disponível' } },
+            { $sample: { size: 10 } }
         ];
 
-        // Add additional filters if provided in the query
         if (req.query.brand) {
             pipeline.unshift({ $match: { brand: req.query.brand } });
         }
+
         if (req.query.category) {
-            pipeline.unshift({ $match: { category: req.query.category } });
+            // Convert category string to ObjectId
+            const categoryId = mongoose.Types.ObjectId(req.query.category);
+            pipeline.unshift({ $match: { category: categoryId } });
         }
+
         if (req.query.gearBox) {
             pipeline.unshift({ $match: { gearBox: req.query.gearBox } });
         }
 
-        // Execute the aggregation pipeline
         const vehicles = await Vehicle.aggregate(pipeline);
         res.json(vehicles);
     } catch (error) {
