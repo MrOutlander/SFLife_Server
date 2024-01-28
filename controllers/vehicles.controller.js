@@ -194,8 +194,8 @@ const getAllVehiclesMobile = async (req, res) => {
         }
 
         if (req.query.category) {
-            // Convert category string to ObjectId
-            const categoryId = mongoose.Types.ObjectId(req.query.category);
+            // Correctly convert category string to ObjectId
+            const categoryId = new mongoose.Types.ObjectId(req.query.category);
             pipeline.unshift({ $match: { category: categoryId } });
         }
 
@@ -206,6 +206,7 @@ const getAllVehiclesMobile = async (req, res) => {
         const vehicles = await Vehicle.aggregate(pipeline);
         res.json(vehicles);
     } catch (error) {
+        console.error("Error in getAllVehiclesMobile:", error);
         res.status(500).json({ message: error.message });
     }
 };
