@@ -9,11 +9,13 @@ import {
 
     // Mobile Exports
     getAllVehiclesMobile,
+    getVehiclesByCategory
 } from '../controllers/vehicles.controller.js'
 
 const router = express.Router();
 // MOBILE
 router.route('/mobile/').get(getAllVehiclesMobile);
+router.route('/byCategory/:categoryId').get(getVehiclesByCategory);
 
 // DESKTOP
 router.route('/').get(getAllVehicles);

@@ -211,6 +211,22 @@ const getAllVehiclesMobile = async (req, res) => {
     }
 };
 
+const getVehiclesByCategory = async (req, res) => {
+    try {
+        const categoryId = req.params.categoryId;
+
+        // Validate categoryId
+        if (!mongoose.Types.ObjectId.isValid(categoryId)) {
+            return res.status(400).json({ message: 'Invalid category ID' });
+        }
+
+        const vehicles = await Vehicle.find({ category: categoryId });
+        res.json(vehicles);
+    } catch (error) {
+        console.error("Error in getVehiclesByCategory:", error);
+        res.status(500).json({ message: error.message });
+    }
+};
 
 export {
     getAllVehicles,
@@ -221,4 +237,5 @@ export {
 
     // Mobile Exports
     getAllVehiclesMobile,
+    getVehiclesByCategory,
 }
