@@ -184,63 +184,63 @@ const getAllVehiclesMobile = async (req, res) => {
     //     res.status(500).json({ message: error.message });
     // }
 
-            // TRY AGAIIIINNNNNNN !!!  
-
-    // try {
-    //     let pipeline = [
-    //         { $match: { status: 'Disponível' } },
-    //         { $sample: { size: 10 } }
-    //     ];
-
-    //     if (req.query.brand) {
-    //         pipeline.unshift({ $match: { brand: req.query.brand } });
-    //     }
-
-    //     if (req.query.category) {
-    //         // Correctly convert category string to ObjectId
-    //         const categoryId = new mongoose.Types.ObjectId(req.query.category);
-    //         pipeline.unshift({ $match: { category: categoryId } });
-    //     }
-
-    //     if (req.query.gearBox) {
-    //         pipeline.unshift({ $match: { gearBox: req.query.gearBox } });
-    //     }
-
-    //     const vehicles = await Vehicle.aggregate(pipeline);
-    //     res.json(vehicles);
-    // } catch (error) {
-    //     console.error("Error in getAllVehiclesMobile:", error);
-    //     res.status(500).json({ message: error.message });
-    // }
+           // TRY AGAIIIINNNNNNN !!!  
 
     try {
-        let query = Vehicle.find({ status: 'Disponível' }).limit(10);
+        let pipeline = [
+            { $match: { status: 'Disponível' } },
+            { $sample: { size: 10 } }
+        ];
 
         if (req.query.brand) {
-            query = query.where({ brand: req.query.brand });
+            pipeline.unshift({ $match: { brand: req.query.brand } });
         }
 
         if (req.query.category) {
+            // Correctly convert category string to ObjectId
             const categoryId = new mongoose.Types.ObjectId(req.query.category);
-            query = query.where({ category: categoryId });
+            pipeline.unshift({ $match: { category: categoryId } });
         }
 
         if (req.query.gearBox) {
-            query = query.where({ gearBox: req.query.gearBox });
+            pipeline.unshift({ $match: { gearBox: req.query.gearBox } });
         }
 
-        query = query.populate({
-            path: 'location',
-            select: 'name' // Only select the Name field from the Location collection
-        });
-
-        const vehicles = await query.exec();
-
+        const vehicles = await Vehicle.aggregate(pipeline);
         res.json(vehicles);
     } catch (error) {
         console.error("Error in getAllVehiclesMobile:", error);
         res.status(500).json({ message: error.message });
     }
+
+    // try {
+    //     let query = Vehicle.find({ status: 'Disponível' }).limit(10);
+
+    //     if (req.query.brand) {
+    //         query = query.where({ brand: req.query.brand });
+    //     }
+
+    //     if (req.query.category) {
+    //         const categoryId = new mongoose.Types.ObjectId(req.query.category);
+    //         query = query.where({ category: categoryId });
+    //     }
+
+    //     if (req.query.gearBox) {
+    //         query = query.where({ gearBox: req.query.gearBox });
+    //     }
+
+    //     query = query.populate({
+    //         path: 'location',
+    //         select: 'name' // Only select the Name field from the Location collection
+    //     });
+
+    //     const vehicles = await query.exec();
+
+    //     res.json(vehicles);
+    // } catch (error) {
+    //     console.error("Error in getAllVehiclesMobile:", error);
+    //     res.status(500).json({ message: error.message });
+    // }
 };
 
 const getVehiclesByCategory = async (req, res) => {
