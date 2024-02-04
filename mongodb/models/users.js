@@ -6,7 +6,8 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     dob: { type: String, required: false },
     phone: { type: String, required: false },
-    address: { type: String, required: false },
+    addressStreet: { type: String, required: false },
+    addressCity: { type: String, required: false },
     avatar: { type: String, required: false },
     favourites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'vehicles' }],
 });
