@@ -43,7 +43,7 @@ const createReservation = async (req, res) => {
 
                 // Update the vehicle's status to 'reserved' or a similar status
         if (vehicleExists) {
-            vehicleExists.status = 'Reserved';
+            vehicleExists.status = 'Reservado';
             await vehicleExists.save();
         }
 
