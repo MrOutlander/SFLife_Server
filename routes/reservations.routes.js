@@ -5,10 +5,13 @@ import {
     getReservationById,
     createReservation,
     editReservation,
-    deleteReservation
+    deleteReservation,
+    createReservationMobile
 } from '../controllers/reservations.controller.js'
 
 const router = express.Router();
+
+router.route('/mobile').post(createReservationMobile);
 
 router.route('/').get(getAllReservations);
 router.route('/:id').get(getReservationById);

@@ -41,7 +41,7 @@ const updateVehicleLocations = async () => {
     }
 };
 
-export default {
+export {
     updateVehicleAvailability,
     updateVehicleLocations
 }
