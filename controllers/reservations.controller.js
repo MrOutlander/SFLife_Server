@@ -85,6 +85,33 @@ const deleteReservation = async (req, res) => {
 };
 
 const createReservationMobile = async (req, res) => {
+    // try {
+    //     // Directly create a reservation without checking if related documents exist
+    //     const reservation = new Reservation({
+    //         user: req.body.user,
+    //         vehicle: req.body.vehicle,
+    //         pickUpLocation: req.body.pickUpLocation,
+    //         dropOffLocation: req.body.dropOffLocation,
+    //         startDate: req.body.startDate,
+    //         endDate: req.body.endDate,
+    //         // Assuming vehicleStatusUpdated is either provided by the client or defaults to false
+    //         vehicleStatusUpdated: req.body.vehicleStatusUpdated || false,
+    //     });
+
+    //     const newReservation = await reservation.save();
+
+    //     // Optionally, update the vehicle's status here if needed
+    //     // This step can be skipped if the vehicle status update is handled elsewhere
+    //     if (newReservation) {
+    //         await Vehicle.findByIdAndUpdate(req.body.vehicle, { status: 'Reservado' });
+    //     }
+
+    //     res.status(201).json(newReservation);
+    // } catch (error) {
+    //     console.error('Error creating reservation:', error);
+    //     res.status(400).json({ message: 'Failed to create reservation', error: error.message });
+    // }
+
     try {
         // Directly create a reservation without checking if related documents exist
         const reservation = new Reservation({
@@ -94,16 +121,21 @@ const createReservationMobile = async (req, res) => {
             dropOffLocation: req.body.dropOffLocation,
             startDate: req.body.startDate,
             endDate: req.body.endDate,
-            // Assuming vehicleStatusUpdated is either provided by the client or defaults to false
             vehicleStatusUpdated: req.body.vehicleStatusUpdated || false,
         });
 
         const newReservation = await reservation.save();
 
-        // Optionally, update the vehicle's status here if needed
-        // This step can be skipped if the vehicle status update is handled elsewhere
+        // Update the vehicle's status to indicate it is reserved
         if (newReservation) {
-            await Vehicle.findByIdAndUpdate(req.body.vehicle, { status: 'Reservado' });
+            const updatedVehicle = await Vehicle.findByIdAndUpdate(
+                req.body.vehicle,
+                { status: 'Reservado' }, // Update status to 'Reservado' or any other term you use to indicate it's reserved
+                { new: true } // Return the updated document
+            );
+
+            // Optionally, log the updated vehicle or perform additional actions as needed
+            console.log('Vehicle status updated:', updatedVehicle);
         }
 
         res.status(201).json(newReservation);
