@@ -1,5 +1,6 @@
 import User from '../mongodb/models/users.js'
 import bcrypt from 'bcrypt';
+import { generateToken } from '../utils/generateToken.js';
 
 const loginUser = async (req, res) => {
     try {

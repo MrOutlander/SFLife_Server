@@ -1,4 +1,5 @@
 import User from '../mongodb/models/users.js'
+import bcrypt from 'bcrypt';
 
 // Get all users
 const getAllUsers = async (req, res) => {
@@ -31,7 +32,12 @@ const createUser = async (req, res) => {
         if (existingUser) {
             return res.status(400).json({ message: 'A user with this email already exists.' });
         }
-        const user = new User(req.body);
+        const salt = await bcrypt.genSalt(10); // 10 rounds is recommended
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        const user = new User({
+            ...req.body,
+            password: hashedPassword // Store the hashed password instead of the plain one
+        });
         const newUser = await user.save();
         res.status(201).json(newUser);
     } catch (error) {
@@ -47,6 +53,12 @@ const editUser = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
+        // Check if the password is being updated
+        if (req.body.password) {
+            const salt = await bcrypt.genSalt(10);
+            req.body.password = await bcrypt.hash(req.body.password, salt);
+        }
+        
         Object.assign(user, req.body);
         await user.save();
         res.json(user);
