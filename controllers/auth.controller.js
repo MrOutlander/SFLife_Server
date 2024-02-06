@@ -1,4 +1,5 @@
 import User from '../mongodb/models/users.js'
+import bcrypt from 'bcrypt';
 
 const loginUser = async (req, res) => {
     try {
