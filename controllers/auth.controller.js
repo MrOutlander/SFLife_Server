@@ -17,7 +17,7 @@ const loginUser = async (req, res) => {
         }
 
         // Generate token; implement this based on your auth strategy
-        const token = generateToken(user._id);
+        const token = generateToken(user);
 
         res.json({ token });
     } catch (error) {
