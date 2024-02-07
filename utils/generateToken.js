@@ -2,18 +2,16 @@ import jwt from 'jsonwebtoken';
 
 const generateToken = (user) => {
     return jwt.sign({ 
-        id: user._id,
-        username: user.username,
-        email: user.email,
-        password: user.password,
+        id: user._id, // Essential for identifying the user
+        username: user.username, // Useful for display purposes
+        email: user.email, // Useful for display and contact purposes
         dob: user.dob,
         phone: user.phone,
         addressStreet: user.addressStreet,
         addressCity: user.addressCity,
         avatar: user.avatar,
-        favourites: user.favourites,
-        }, process.env.JWT_SECRET, {
-        expiresIn: '7d' // Token expires in 1 hour
+    }, process.env.JWT_SECRET, {
+        expiresIn: '7d'
     });
 };
 
