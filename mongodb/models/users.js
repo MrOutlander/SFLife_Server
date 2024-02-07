@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     addressStreet: { type: String, required: false },
     addressCity: { type: String, required: false },
     avatar: { type: String, required: false },
-    favourites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'vehicles' }],
+    favourites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Vehicle' }],
 });
 
 const User = mongoose.model('User', userSchema);

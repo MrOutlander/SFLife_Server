@@ -30,7 +30,7 @@ const createUser = async (req, res) => {
         // Check if user already exists
         const existingUser = await User.findOne({ email: req.body.email });
         if (existingUser) {
-            return res.status(400).json({ message: 'A user with this email already exists.' });
+            return res.status(400).json({ message: 'Esse usuario ja existe' });
         }
         const salt = await bcrypt.genSalt(10); // 10 rounds is recommended
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
@@ -58,7 +58,7 @@ const editUser = async (req, res) => {
             const salt = await bcrypt.genSalt(10);
             req.body.password = await bcrypt.hash(req.body.password, salt);
         }
-        
+
         Object.assign(user, req.body);
         await user.save();
         res.json(user);
