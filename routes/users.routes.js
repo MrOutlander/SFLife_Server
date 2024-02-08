@@ -5,14 +5,15 @@ import {
     getUserById,
     createUser,
     editUser,
-    deleteUser
+    deleteUser,
+    addFavoriteVehicle
 } from '../controllers/users.controller.js'
 
 import { loginUser } from "../controllers/auth.controller.js";
 
 const router = express.Router();
 
-//AUTH AND MOBILE
+//AUTH
 router.post('/login', loginUser);
 
 router.route('/').get(getAllUsers);
@@ -21,6 +22,7 @@ router.route('/').post(createUser);
 router.route('/:id').patch(editUser);
 router.route('/:id').delete(deleteUser);
 
-
+//MONILE
+router.post('/users/:userId/favorites/:vehicleId', addFavoriteVehicle);
 
 export default router;
