@@ -23,6 +23,6 @@ router.route('/:id').patch(editUser);
 router.route('/:id').delete(deleteUser);
 
 //MONILE
-router.post('/users/:userId/favorites/:vehicleId', addFavoriteVehicle);
+router.post('/users/:id/favorites/:vehicleId', addFavoriteVehicle);
 
 export default router;
