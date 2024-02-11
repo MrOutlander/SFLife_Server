@@ -15,7 +15,7 @@ const getVehicleCategoryById = async (req, res) => {
     try {
         const category = await VehicleCategory.findById(req.params.id);
         if (!category) {
-            return res.status(404).json({ message: 'Vehicle category not found' });
+            return res.status(404).json({ message: 'Categoria de viatura não existe' });
         }
         res.json(category);
     } catch (error) {
@@ -39,7 +39,7 @@ const editVehicleCategory = async (req, res) => {
     try {
         const category = await VehicleCategory.findById(req.params.id);
         if (!category) {
-            return res.status(404).json({ message: 'Vehicle category not found' });
+            return res.status(404).json({ message: 'Categoria de viatura não existe' });
         }
         Object.assign(category, req.body);
         await category.save();
@@ -54,9 +54,9 @@ const deleteVehicleCategory = async (req, res) => {
     try {
         const category = await VehicleCategory.findByIdAndDelete(req.params.id);
         if (!category) {
-            return res.status(404).json({ message: 'Vehicle category not found' });
+            return res.status(404).json({ message: 'Categoria de viatura não existe' });
         }
-        res.json({ message: 'Vehicle category deleted' });
+        res.json({ message: 'Categoria de viatura apagada' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

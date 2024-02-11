@@ -84,11 +84,11 @@ const getVehicleById = async (req, res) => {
                                  .exec();
 
         if (!vehicle) {
-            return res.status(404).json({ message: "Vehicle not found" });
+            return res.status(404).json({ message: "Viatura não existe" });
         }
         res.status(200).json(vehicle);
     } catch (error) {
-        res.status(500).json({ message: "Error fetching Vehicle details", error });
+        res.status(500).json({ message: "Erro ao buscar detalhes da viatura", error });
     } 
 };
 
@@ -99,7 +99,7 @@ const createVehicle = async (req, res) => {
         // Check if vehicle with the same plate number already exists
         const existingVehicle = await Vehicle.findOne({ plateNr: req.body.plateNr });
         if (existingVehicle) {
-            return res.status(400).json({ message: 'A vehicle with this plate number already exists.' });
+            return res.status(400).json({ message: 'Já existe uma viatura com esta chapa de matricula' });
         }
 
         const vehicle = new Vehicle(req.body);
@@ -116,18 +116,18 @@ const editVehicle = async (req, res) => {
     try {
         const vehicle = await Vehicle.findById(req.params.id);
         if (!vehicle) {
-            return res.status(404).json({ message: 'Vehicle not found' });
+            return res.status(404).json({ message: 'Viatura não existe' });
         }
 
         // Check if there are any active reservations if trying to set the vehicle as 'available'
-        if (req.body.status === 'available') {
+        if (req.body.status === 'Disponível') {
             const activeReservations = await Reservation.find({
                 vehicle: vehicle._id,
                 endDate: { $gte: new Date() } // Reservations that have not ended yet
             });
 
             if (activeReservations.length > 0) {
-                return res.status(400).json({ message: 'Vehicle cannot be set to available as it has active reservations.' });
+                return res.status(400).json({ message: 'Viatura não pode ser feita disponível enquanto tiver uma reserva activa. Por Favor, mude a reserve primeiro.' });
             }
         }
 
@@ -146,9 +146,9 @@ const deleteVehicle = async (req, res) => {
     try {
         const vehicle = await Vehicle.findByIdAndDelete(req.params.id);
         if (!vehicle) {
-            return res.status(404).json({ message: 'Vehicle not found' });
+            return res.status(404).json({ message: 'Viatura não existe' });
         }
-        res.json({ message: 'Vehicle deleted' });
+        res.json({ message: 'Viatura Apagada' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -204,13 +204,13 @@ const getVehiclesByCategory = async (req, res) => {
 
         // Validate categoryId
         if (!mongoose.Types.ObjectId.isValid(categoryId)) {
-            return res.status(400).json({ message: 'Invalid category ID' });
+            return res.status(400).json({ message: 'ID de categoria invalido' });
         }
 
         const vehicles = await Vehicle.find({ category: categoryId });
         res.json(vehicles);
     } catch (error) {
-        console.error("Error in getVehiclesByCategory:", error);
+        console.error("Erro ao baixar viaturas por categoria:", error);
         res.status(500).json({ message: error.message });
     }
 };

@@ -15,7 +15,7 @@ const getLocationById = async (req, res) => {
     try {
         const location = await Location.findById(req.params.id);
         if (!location) {
-            return res.status(404).json({ message: 'Location not found' });
+            return res.status(404).json({ message: 'Localização não existe' });
         }
         res.json(location);
     } catch (error) {
@@ -29,7 +29,7 @@ const createLocation = async (req, res) => {
         // Check if location with the same name already exists
         const existingLocation = await Location.findOne({ name: req.body.name });
         if (existingLocation) {
-            return res.status(400).json({ message: 'A location with this name already exists.' });
+            return res.status(400).json({ message: 'Uma localização com este nome já está registada' });
         }
 
         const location = new Location(req.body);
@@ -45,7 +45,7 @@ const editLocation = async (req, res) => {
     try {
         const location = await Location.findById(req.params.id);
         if (!location) {
-            return res.status(404).json({ message: 'Location not found' });
+            return res.status(404).json({ message: 'Localização não existe' });
         }
         Object.assign(location, req.body);
         await location.save();
@@ -60,9 +60,9 @@ const deleteLocation = async (req, res) => {
     try {
         const location = await Location.findByIdAndDelete(req.params.id);
         if (!location) {
-            return res.status(404).json({ message: 'Location not found' });
+            return res.status(404).json({ message: 'Localização não existe' });
         }
-        res.json({ message: 'Location deleted' });
+        res.json({ message: 'Localização apagada' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

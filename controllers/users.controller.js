@@ -16,7 +16,7 @@ const getUserById = async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
         if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+            return res.status(404).json({ message: 'Utilizador não existe' });
         }
         res.json(user);
     } catch (error) {
@@ -30,7 +30,7 @@ const createUser = async (req, res) => {
         // Check if user already exists
         const existingUser = await User.findOne({ email: req.body.email });
         if (existingUser) {
-            return res.status(400).json({ message: 'Esse usuario ja existe' });
+            return res.status(400).json({ message: 'Este usuario já existe' });
         }
         const salt = await bcrypt.genSalt(10); // 10 rounds is recommended
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
@@ -51,7 +51,7 @@ const editUser = async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
         if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+            return res.status(404).json({ message: 'Utilizador não existe' });
         }
         // Check if the password is being updated
         if (req.body.password) {
@@ -72,9 +72,9 @@ const deleteUser = async (req, res) => {
     try {
         const user = await User.findByIdAndDelete(req.params.id);
         if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+            return res.status(404).json({ message: 'Utilizador não existe' });
         }
-        res.json({ message: 'User deleted' });
+        res.json({ message: 'Utilizador apagado' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -87,16 +87,16 @@ const addFavoriteVehicle = async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
         if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+            return res.status(404).json({ message: 'Utilizador não existe' });
         }
 
         // Check if the vehicle is already in favorites
         if (!user.favourites.includes(vehicleId)) {
             user.favourites.push(vehicleId);
             await user.save();
-            res.json({ message: 'Vehicle added to favorites', user });
+            res.json({ message: 'Viatura adicionada aos favoritos', user });
         } else {
-            res.status(400).json({ message: 'Vehicle already in favorites' });
+            res.status(400).json({ message: 'Viatura ja está nos favoritos' });
         }
     } catch (error) {
         res.status(500).json({ message: error.message });

@@ -12,14 +12,14 @@ const updateVehicleAvailability = async () => {
         for (const reservation of endedReservations) {
             const vehicle = await Vehicle.findById(reservation.vehicle);
             if (vehicle) {
-                vehicle.status = 'available'; // Update the status as needed
+                vehicle.status = 'Disponível'; // Update the status as needed
                 await vehicle.save();
             }
             reservation.vehicleStatusUpdated = true;
             await reservation.save();
         }
     } catch (error) {
-        console.error('Error updating vehicle availability:', error);
+        console.error('Erro ao actualizar estado da viatura:', error);
     }
 };
 

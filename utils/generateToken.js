@@ -11,7 +11,7 @@ const generateToken = (user) => {
         addressCity: user.addressCity,
         avatar: user.avatar,
     }, process.env.JWT_SECRET, {
-        expiresIn: '7d'
+        expiresIn: '30d'
     });
 };
 

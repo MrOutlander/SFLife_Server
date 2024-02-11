@@ -17,7 +17,7 @@ const getReservationById = async (req, res) => {
     try {
         const reservation = await Reservation.findById(req.params.id).populate('user').populate('vehicle');
         if (!reservation) {
-            return res.status(404).json({ message: 'Reservation not found' });
+            return res.status(404).json({ message: 'Reserva não existe' });
         }
         res.json(reservation);
     } catch (error) {
@@ -35,7 +35,7 @@ const createReservation = async (req, res) => {
         const dropOffLocationExists = await Location.findById(req.body.dropOffLocation);
 
         if (!userExists || !vehicleExists || !pickUpLocationExists || !dropOffLocationExists) {
-            return res.status(400).json({ message: 'User, Vehicle, or Locations not found' });
+            return res.status(400).json({ message: 'Utilizador, Veículo ou Localização não existe' });
         }
 
         const reservation = new Reservation(req.body);
@@ -58,7 +58,7 @@ const editReservation = async (req, res) => {
     try {
         const reservation = await Reservation.findById(req.params.id);
         if (!reservation) {
-            return res.status(404).json({ message: 'Reservation not found' });
+            return res.status(404).json({ message: 'Reserva não existe' });
         }
 
         // Optionally, add checks for user and vehicle existence as in addReservation
@@ -76,9 +76,9 @@ const deleteReservation = async (req, res) => {
     try {
         const reservation = await Reservation.findByIdAndDelete(req.params.id);
         if (!reservation) {
-            return res.status(404).json({ message: 'Reservation not found' });
+            return res.status(404).json({ message: 'Reserva não existe' });
         }
-        res.json({ message: 'Reservation deleted' });
+        res.json({ message: 'Reserva apagada' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -135,13 +135,13 @@ const createReservationMobile = async (req, res) => {
             );
 
             // Optionally, log the updated vehicle or perform additional actions as needed
-            console.log('Vehicle status updated:', updatedVehicle);
+            console.log('Estado da viatura actualizado:', updatedVehicle);
         }
 
         res.status(201).json(newReservation);
     } catch (error) {
-        console.error('Error creating reservation:', error);
-        res.status(400).json({ message: 'Failed to create reservation', error: error.message });
+        console.error('Erro ao criar a reserva:', error);
+        res.status(400).json({ message: 'Falha ao criar a reserva', error: error.message });
     }
 };
 

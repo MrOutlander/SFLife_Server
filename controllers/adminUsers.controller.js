@@ -15,7 +15,7 @@ const getAdminUserById = async (req, res) => {
     try {
         const adminUser = await AdminUser.findById(req.params.id);
         if (!adminUser) {
-            return res.status(404).json({ message: 'Admin user not found' });
+            return res.status(404).json({ message: 'Administrador não existe' });
         }
         res.json(adminUser);
     } catch (error) {
@@ -48,7 +48,7 @@ const createAdminUser = async (req, res) => {
             // Here, you can include any additional logic you need for a login
             // For example, you might want to update the last login timestamp or similar
             return res.status(200).json({ 
-                message: 'Admin user logged in successfully.', 
+                message: 'Sessão de administrador iniciada com sucesso.', 
                 user: existingAdminUser
             });
         }
@@ -62,7 +62,7 @@ const createAdminUser = async (req, res) => {
         });
         const newAdminUser = await adminUser.save();
         res.status(201).json({ 
-            message: 'Admin user created successfully.', 
+            message: 'Administrador registado com sucesso.', 
             user: newAdminUser
         });
     } catch (error) {
@@ -75,7 +75,7 @@ const editAdminUser = async (req, res) => {
     try {
         const adminUser = await AdminUser.findById(req.params.id);
         if (!adminUser) {
-            return res.status(404).json({ message: 'Admin user not found' });
+            return res.status(404).json({ message: 'Administrador não existe' });
         }
         Object.assign(adminUser, req.body);
         await adminUser.save();
@@ -90,9 +90,9 @@ const deleteAdminUser = async (req, res) => {
     try {
         const adminUser = await AdminUser.findByIdAndDelete(req.params.id);
         if (!adminUser) {
-            return res.status(404).json({ message: 'Admin user not found' });
+            return res.status(404).json({ message: 'Administrador não existe' });
         }
-        res.json({ message: 'Admin user deleted' });
+        res.json({ message: 'Administrador apagado' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
