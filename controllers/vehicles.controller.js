@@ -161,7 +161,7 @@ const getAllVehiclesMobile = async (req, res) => {
     try {
         let pipeline = [
             { $match: { status: 'Disponível' } },
-            { $sample: { size: 10 } }
+            { $sample: { size: 1000 } }
         ];
 
         if (req.query.brand) {
@@ -178,13 +178,24 @@ const getAllVehiclesMobile = async (req, res) => {
             pipeline.unshift({ $match: { gearBox: req.query.gearBox } });
         }
 
+        // Check if price filter exists
+        if (req.query.minPrice || req.query.maxPrice) {
+            let priceMatch = {};
+            if (req.query.minPrice) {
+                priceMatch.$gte = Number(req.query.minPrice);
+            }
+            if (req.query.maxPrice) {
+                priceMatch.$lte = Number(req.query.maxPrice);
+            }
+            pipeline.unshift({ $match: { price: priceMatch } });
+        }
+
         const vehicles = await Vehicle.aggregate(pipeline);
         res.json(vehicles);
     } catch (error) {
         console.error("Error in getAllVehiclesMobile:", error);
         res.status(500).json({ message: error.message });
     }
-
 };
 
 const getVehiclesByCategory = async (req, res) => {
