@@ -1,4 +1,5 @@
 import Vehicle from '../mongodb/models/vehicles.js'
+import Reservation from '../mongodb/models/reservations.js'
 import mongoose from 'mongoose';
 
 // Get all vehicles with filtering and sorting
@@ -127,7 +128,7 @@ const editVehicle = async (req, res) => {
             });
 
             if (activeReservations.length > 0) {
-                return res.status(400).json({ message: 'Viatura não pode ser feita disponível enquanto tiver uma reserva activa. Por Favor, mude a reserve primeiro.' });
+                return res.status(400).json({ message: 'Viatura não pode ser feita disponível enquanto tiver uma reserva activa. Por Favor, mude a reserva primeiro.' });
             }
         }
 
