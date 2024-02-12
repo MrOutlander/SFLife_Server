@@ -73,13 +73,43 @@ const editReservation = async (req, res) => {
 
 // Delete a reservation
 const deleteReservation = async (req, res) => {
+    // try {
+    //     const reservation = await Reservation.findByIdAndDelete(req.params.id);
+    //     if (!reservation) {
+    //         return res.status(404).json({ message: 'Reserva não existe' });
+    //     }
+    //     res.json({ message: 'Reserva apagada' });
+    // } catch (error) {
+    //     res.status(500).json({ message: error.message });
+    // }
     try {
-        const reservation = await Reservation.findByIdAndDelete(req.params.id);
+        // Step 1: Fetch the reservation to get the vehicle ID
+        const reservation = await Reservation.findById(req.params.id);
         if (!reservation) {
             return res.status(404).json({ message: 'Reserva não existe' });
         }
-        res.json({ message: 'Reserva apagada' });
+        
+        // Step 2: Update the vehicle's status to "Disponível"
+        const updatedVehicle = await Vehicle.findByIdAndUpdate(
+            reservation.vehicle, // Use the vehicle ID from the reservation
+            { status: 'Disponível' }, // New status
+            { new: true } // Option to return the updated document
+        );
+
+        // Optionally, check if the vehicle was successfully updated
+        if (!updatedVehicle) {
+            return res.status(404).json({ message: 'Veículo não encontrado' });
+        }
+
+        // Log the updated vehicle status if needed
+        console.log('Estado da viatura atualizado para disponível:', updatedVehicle);
+
+        // Step 3: Delete the reservation
+        await Reservation.findByIdAndDelete(req.params.id);
+
+        res.json({ message: 'Reserva apagada e veículo atualizado para disponível' });
     } catch (error) {
+        console.error('Erro ao apagar a reserva:', error);
         res.status(500).json({ message: error.message });
     }
 };
@@ -87,33 +117,6 @@ const deleteReservation = async (req, res) => {
 //MOBILE
 
 const createReservationMobile = async (req, res) => {
-    // try {
-    //     // Directly create a reservation without checking if related documents exist
-    //     const reservation = new Reservation({
-    //         user: req.body.user,
-    //         vehicle: req.body.vehicle,
-    //         pickUpLocation: req.body.pickUpLocation,
-    //         dropOffLocation: req.body.dropOffLocation,
-    //         startDate: req.body.startDate,
-    //         endDate: req.body.endDate,
-    //         // Assuming vehicleStatusUpdated is either provided by the client or defaults to false
-    //         vehicleStatusUpdated: req.body.vehicleStatusUpdated || false,
-    //     });
-
-    //     const newReservation = await reservation.save();
-
-    //     // Optionally, update the vehicle's status here if needed
-    //     // This step can be skipped if the vehicle status update is handled elsewhere
-    //     if (newReservation) {
-    //         await Vehicle.findByIdAndUpdate(req.body.vehicle, { status: 'Reservado' });
-    //     }
-
-    //     res.status(201).json(newReservation);
-    // } catch (error) {
-    //     console.error('Error creating reservation:', error);
-    //     res.status(400).json({ message: 'Failed to create reservation', error: error.message });
-    // }
-
     try {
         // Directly create a reservation without checking if related documents exist
         const reservation = new Reservation({
