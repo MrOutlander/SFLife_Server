@@ -6,7 +6,6 @@ import {
     createUser,
     editUser,
     deleteUser,
-    // addFavoriteVehicle
 } from '../controllers/users.controller.js'
 
 import { loginUser } from "../controllers/auth.controller.js";

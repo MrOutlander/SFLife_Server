@@ -80,28 +80,6 @@ const deleteUser = async (req, res) => {
     }
 };
 
-//MOBILE
-// const addFavoriteVehicle = async (req, res) => {
-//     const { userId, vehicleId } = req.params; // Assuming you pass these as URL parameters
-
-//     try {
-//         const user = await User.findById(req.params.id);
-//         if (!user) {
-//             return res.status(404).json({ message: 'Utilizador não existe' });
-//         }
-
-//         // Check if the vehicle is already in favorites
-//         if (!user.favourites.includes(vehicleId)) {
-//             user.favourites.push(vehicleId);
-//             await user.save();
-//             res.json({ message: 'Viatura adicionada aos favoritos', user });
-//         } else {
-//             res.status(400).json({ message: 'Viatura ja está nos favoritos' });
-//         }
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// };
 
 
 
@@ -111,7 +89,4 @@ export {
     createUser,
     editUser,
     deleteUser,
-
-    //MOBILE
-    // addFavoriteVehicle,
 };

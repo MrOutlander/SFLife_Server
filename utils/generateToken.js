@@ -10,6 +10,7 @@ const generateToken = (user) => {
         addressStreet: user.addressStreet,
         addressCity: user.addressCity,
         avatar: user.avatar,
+        favourites: user.favourites,
     }, process.env.JWT_SECRET, {
         expiresIn: '30d'
     });
