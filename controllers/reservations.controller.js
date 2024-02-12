@@ -84,6 +84,8 @@ const deleteReservation = async (req, res) => {
     }
 };
 
+//MOBILE
+
 const createReservationMobile = async (req, res) => {
     // try {
     //     // Directly create a reservation without checking if related documents exist
@@ -145,6 +147,18 @@ const createReservationMobile = async (req, res) => {
     }
 };
 
+// Get all reservations for a specific user
+const getReservationsByUserId = async (req, res) => {
+    try {
+        const userId = req.params.userId; // Or use req.query.userId if you prefer to use query parameters
+        const reservations = await Reservation.find({ user: userId }).populate('user').populate('vehicle').populate('pickUpLocation').populate('dropOffLocation');
+        res.json(reservations);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
 
 export {
     getAllReservations,
@@ -155,4 +169,5 @@ export {
 
     //MOBILE
     createReservationMobile,
+    getReservationsByUserId,
 };

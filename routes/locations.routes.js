@@ -5,7 +5,7 @@ import {
     getLocationById,
     createLocation,
     editLocation,
-    deleteLocation
+    deleteLocation,
 } from '../controllers/locations.controller.js'
 
 const router = express.Router();

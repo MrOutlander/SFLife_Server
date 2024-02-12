@@ -6,13 +6,17 @@ import {
     createReservation,
     editReservation,
     deleteReservation,
-    createReservationMobile
+    createReservationMobile,
+    getReservationsByUserId
 } from '../controllers/reservations.controller.js'
 
 const router = express.Router();
 
+    //MOBILE
 router.route('/mobile').post(createReservationMobile);
+router.route('/user/:userId').get(getReservationsByUserId);
 
+    // DESKTOP
 router.route('/').get(getAllReservations);
 router.route('/:id').get(getReservationById);
 router.route('/').post(createReservation);
