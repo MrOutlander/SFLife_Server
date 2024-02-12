@@ -10,6 +10,7 @@ import reservationsRouter from './routes/reservations.routes.js'
 import vehiclesRouter from './routes/vehicles.routes.js'
 import vehicleCategoryRouter from './routes/vehicleCategory.routes.js'
 import adminUserRouter from './routes/adminUser.routes.js'
+import favouritesRouter from './routes/favourites.routes.js'
 
 dotenv.config();
 
@@ -50,6 +51,7 @@ app.use('/api/v1/locations', locationsRouter);
 app.use('/api/v1/reservations', reservationsRouter);
 app.use('/api/v1/vehicles', vehiclesRouter);
 app.use('/api/v1/vehicle_Category', vehicleCategoryRouter);
+app.use('/api/v1/favourites', favouritesRouter);
 app.get('/api/config', (req, res) => {
     res.json({
       googleClientId: process.env.GOOGLE_CLIENT_ID,

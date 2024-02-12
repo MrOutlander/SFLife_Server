@@ -6,7 +6,7 @@ import {
     createUser,
     editUser,
     deleteUser,
-    addFavoriteVehicle
+    // addFavoriteVehicle
 } from '../controllers/users.controller.js'
 
 import { loginUser } from "../controllers/auth.controller.js";
@@ -22,7 +22,6 @@ router.route('/').post(createUser);
 router.route('/:id').patch(editUser);
 router.route('/:id').delete(deleteUser);
 
-//MONILE
-router.post('/users/:id/favorites/:vehicleId', addFavoriteVehicle);
+
 
 export default router;
