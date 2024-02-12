@@ -1,5 +1,14 @@
 import Favourite from '../mongodb/models/favourites.js'
 
+const getAllFavourites = async (req, res) => {
+    try {
+        const users = await Favourite.find();
+        res.json(users);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 const addFavourite = async (req, res) => {
     const { userId, vehicleId } = req.body;
 
@@ -45,6 +54,7 @@ const removeFavourite = async (req, res) => {
 
 
 export {
+    getAllFavourites,
     addFavourite,
-    removeFavourite
+    removeFavourite,
 }
